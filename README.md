@@ -1,6 +1,6 @@
 # 開発用gulpfile
 現行の開発で使用しているmyGulpfile
-Gulp *v4* で記述
+Gulp **v4** で記述
 
 以下参考サイト類
 ## v3時、参考(基本形)
