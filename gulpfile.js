@@ -1,7 +1,7 @@
 // plugins
 const gulp = require('gulp');
 const sass = require('gulp-sass');
-const browserSync = require("browser-sync");
+const browserSync = require('browser-sync');
 
 const paths = {
 	'scss': './src/sass/',
@@ -23,6 +23,11 @@ gulp.task('scss', function() {
 		.pipe(gulp.dest(paths.css));
 });
 
+
+const reload = (done) => {
+  browserSync.reload();
+  done();
+};
 //Browser Sync
 gulp.task('browser-sync', () => {
 	browserSync({
@@ -31,7 +36,7 @@ gulp.task('browser-sync', () => {
 		}
 	});
 	gulp.watch(paths.js + '**/*.js', gulp.task('reload'));
-	gulp.watch(paths.html + '**/*.html', gulp.task('reload'));
+	gulp.watch(paths.html + '**/*.html', reload);
 	gulp.watch(paths.css + '**/*.css', gulp.task('reload'));
 });
 gulp.task('reload', () => {
