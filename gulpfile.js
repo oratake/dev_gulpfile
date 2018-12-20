@@ -1,10 +1,13 @@
 // plugins
 const gulp = require('gulp');
 const sass = require('gulp-sass');
+const browserSync = require("browser-sync");
 
 const paths = {
 	'scss': './src/sass/',
-	'css': './docs/css/'
+	'css': './docs/css/',
+	'html': './docs/',
+	'js': './docs/scripts/'
 }
 
 // sass options
@@ -12,16 +15,27 @@ const sassOptions = {
 	outputStyle: 'expanded'
 }
 
-// //pug options
-// var pugOptions = {
-//   pretty: true
-// }
-
 // scss tasks
 gulp.task('scss', function() {
 	return gulp.src(paths.scss + '**/*.scss')
 		.pipe(sass(sassOptions))
-		.pipe(gulp.dest(paths.css + '**/*.css'));
+		.on('error', sass.logError)
+		.pipe(gulp.dest(paths.css));
+});
+
+//Browser Sync
+gulp.task('browser-sync', () => {
+	browserSync({
+		server: {
+			baseDir: paths.html
+		}
+	});
+	gulp.watch(paths.js + '**/*.js', gulp.task('reload'));
+	gulp.watch(paths.html + '**/*.html', gulp.task('reload'));
+	gulp.watch(paths.css + '**/*.css', gulp.task('reload'));
+});
+gulp.task('reload', () => {
+	browserSync.reload();
 });
 
 // watch
