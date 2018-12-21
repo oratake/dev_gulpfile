@@ -33,6 +33,7 @@ gulp.task('scss', function() {
 		}))
 		.pipe(sass(sassOptions))
 		.on('error', sass.logError)
+		.pipe(autoprefixer())
 		.pipe(gulp.dest(paths.css));
 });
 
